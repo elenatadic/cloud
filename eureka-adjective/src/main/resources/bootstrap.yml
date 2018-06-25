@@ -1,3 +1,7 @@
 spring: 
   application:
     name: eureka-adjective
+  cloud:
+    config:
+      uri: http://localhost:8001    
+   

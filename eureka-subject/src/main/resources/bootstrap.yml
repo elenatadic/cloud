@@ -1,4 +1,7 @@
 spring:
   application:
     name: eureka-subject
+  cloud:
+    config:
+      uri: http://localhost:8001  
     
