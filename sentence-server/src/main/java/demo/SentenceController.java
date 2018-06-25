@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class SentenceController {
 
-	@Autowired DiscoveryClient client;
+	@Autowired RestTemplate template;
 	
 	
 	/**
@@ -60,14 +60,7 @@ public class SentenceController {
 	 * of speech is indicated by the given service / client ID:
 	 */
 	public String getWord(String service) {
-        List<ServiceInstance> list = client.getInstances(service);
-        if (list != null && list.size() > 0 ) {
-      	URI uri = list.get(0).getUri();
-	      	if (uri !=null ) {
-	      		return (new RestTemplate()).getForObject(uri,String.class);
-	      	}
-        }
-        return null;
+		return template.getForObject("http://" + service, String.class);
 	}
 
 }
