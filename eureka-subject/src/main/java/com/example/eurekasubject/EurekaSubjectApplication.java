@@ -13,8 +13,9 @@ public class EurekaSubjectApplication {
 	@Value ("${words}") static String words;
 	
 	public static void main(String[] args) {
-		System.out.println("********************* words:" + words);
+		
 		SpringApplication.run(EurekaSubjectApplication.class, args);
+		System.out.println("********************* words:" + words);
 		
 	}
 }

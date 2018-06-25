@@ -12,33 +12,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-
-
 @RestController
 public class SentenceController {
 
-	@Autowired DiscoveryClient client;
-	
+	@Autowired
+	DiscoveryClient client;
+
 	@GetMapping("/sentence")
-	  public @ResponseBody String getSentence() {
-	    return 
-	      getWord("EUREKA-SUBJECT") + " "
-	      + getWord("EUREKA-VERB") + " "
-	      + getWord("EUREKA-ARTICLE") + " "
-	      + getWord("EUREKA-ADJECTIVE") + " "
-	      + getWord("EUREKA-NOUN") + "."
-	      ;
-	  }
-	  
-	  public String getWord(String service) {
-	    List<ServiceInstance> list = client.getInstances(service);
-	    if (list != null && list.size() > 0 ) {
-	      URI uri = list.get(0).getUri();
-	  if (uri !=null ) {
-	    return (new RestTemplate()).getForObject(uri,String.class);
-	  }
-	    }
-	    return null;
-	  }
+	public @ResponseBody String getSentence() {
+		return getWord("EUREKA-SUBJECT") + " " + 
+				getWord("EUREKA-VERB") + " " + 
+				getWord("EUREKA-ARTICLE") + " " + 
+				getWord("EUREKA-ADJECTIVE") + " " + 
+				getWord("EUREKA-NOUN") + 
+				".";
+	}
+
+	public String getWord(String service) {
+		List<ServiceInstance> list = client.getInstances(service);
+		if (list != null && list.size() > 0) {
+			URI uri = list.get(0).getUri();
+			if (uri != null) {
+				return (new RestTemplate()).getForObject(uri, String.class);
+			}
+		}
+		return null;
+	}
 
 }
